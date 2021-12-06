@@ -1,1 +1,21 @@
+>>Baixe a imagem utilizando a tag : stable-slim
 docker pull debian:stable-slim
+
+>>Após baixar a imagem para seu computador local, crie e execute um container no modo interativo utilizando essa imagem como referência
+docker container run -it debian:stable-slim
+
+>>Verifique na sua lista de containers , qual o container é referente ao exercício que acabou de praticar
+docker container ls -a
+
+>>Inicie o mesmo container novamente , sem criar outro. Valide se ele está ativo na lista de containers
+docker container start dcfcc267f2b8
+docker container ps
+
+>>Retome o container que foi criado anteriormente nesse exercício
+docker container attach dcfcc267f2b8
+
+>>Remova somente o container criado para esse exercício
+docker container rm dcfcc267f2b8
+
+>>Crie e rode de modo interativo em modo 'Cleanup' , a imagem andrius/ascii-patrol
+docker container run --rm -it andrius/ascii-patrol 
