@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "imc": "node index.js"
+    "imc": "node index.js",
+    "velocidade": "node ./scripts/speed.js"
   },
   "keywords": [
     "practice",
