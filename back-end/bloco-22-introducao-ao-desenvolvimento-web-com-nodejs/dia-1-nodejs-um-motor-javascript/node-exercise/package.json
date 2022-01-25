@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "imc": "node index.js",
-    "velocidade": "node ./scripts/speed.js"
+    "speed": "node ./scripts/speed.js"
   },
   "keywords": [
     "practice",
