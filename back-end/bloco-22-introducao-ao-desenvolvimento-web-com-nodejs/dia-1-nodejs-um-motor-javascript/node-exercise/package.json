@@ -1,0 +1,22 @@
+{
+  "name": "exercise",
+  "version": "1.0.0",
+  "description": "imc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "bmi": "node ./scripts/imc.js",
+    "speed": "node ./scripts/speed.js",
+    "prizedraw": "node ./scripts/prize_draw.js"
+  },
+  "keywords": [
+    "practice",
+    "nodejs"
+  ],
+  "author": "Paulett",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
