@@ -17,4 +17,4 @@ function runGame() {
     runGame();
 }
 
-runGame();
+module.exports = runGame;
