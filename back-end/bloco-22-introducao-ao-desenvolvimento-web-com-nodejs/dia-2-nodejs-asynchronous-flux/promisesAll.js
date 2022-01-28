@@ -36,6 +36,20 @@ function createFiles() {
         .catch((err) => {
             console.error(`Error to write the files: ${err.message}`);
         });
+    Promise.all([
+        fs.readFile('./newFiles/file0.txt'),
+        fs.readFile('./newFiles/file1.txt'),
+        fs.readFile('./newFiles/file2.txt'),
+        fs.readFile('./newFiles/file3.txt'),
+        fs.readFile('./newFiles/file4.txt'),
+    ])
+        .then(([file0, file1, file2, file3, file4]) => {
+            const concatenedData = file0 + ' ' + file1 + ' ' + file2 + ' ' + file3 + ' ' + file4;
+            fs.writeFile('./newFiles/fileAll.txt', concatenedData)
+                .then(() => console.log('fileAll has sucessful written'))
+                .catch((err) => console.error(`Error to write the files: ${err.message}`));
+        })
+        .catch((err) => console.error(`Error to read the files: ${err.message}`));
 }
 
 // manipulateTxtFiles();
