@@ -3,7 +3,8 @@ const fs = require('fs').promises;
 const mySimpsons = './simpsons.json';
 const simpsonsFamily = './simpsonFamily.json';
 
-const newMember = { id: 11, name: 'Nelson Muntz'};
+const memberNelson = { id: '11', name: 'Nelson Muntz'};
+const memberMeggie = { id: '5', name: 'Meggie Simpson'};
 
 async function listSimpsons() {
     const names = await fs.readFile(mySimpsons)
@@ -76,22 +77,36 @@ async function addSimpsonsMember(member) {
         .then(() => { console.log('File sucessful written!'); })
         .catch((err) => { console.error(`Write error: ${err.message}`); });
 
-} 
+}
 
-printSimpsons();
+async function switchSimpsonsMember(oldMember, newMember) {
+    const list = await listSimpsonsFamily();
+    switchArray = list.map(member => {
+        if (member.id == oldMember.id) return newMember;
+        else return member;
+    })
+    let data = JSON.stringify(switchArray, null, 2);
+    fs.writeFile('./simpsonFamily.json', data)
+        .then(() => { console.log('File sucessful written!'); })
+        .catch((err) => { console.error(`Write error: ${err.message}`); });   
+}
 
-simpsonsID(2)
-    .then(result => console.log(`Id: ${result.id}, Name: ${result.name}.`))
-    .catch(err => console.log(`Error: ${err.message}`));
-simpsonsID(20)
-    .then(result => console.log(`Id: ${result.id}, Name: ${result.name}.`))
-    .catch(err => console.log(`Error: ${err.message}`));
+// printSimpsons();
+
+// simpsonsID(2)
+//     .then(result => console.log(`Id: ${result.id}, Name: ${result.name}.`))
+//     .catch(err => console.log(`Error: ${err.message}`));
+// simpsonsID(20)
+//     .then(result => console.log(`Id: ${result.id}, Name: ${result.name}.`))
+//     .catch(err => console.log(`Error: ${err.message}`));
 
 // filterSimpsons(1)
 //     .then(data => rewriteSimpsons(data));
 
 // createFamilySimpsons();
 
-addSimpsonsMember(newMember);
+// addSimpsonsMember(memberNelson);
+
+switchSimpsonsMember(memberNelson, memberMeggie);
 
 
