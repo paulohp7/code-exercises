@@ -27,6 +27,24 @@ function simpsonsID(myId) {
     return promise;
 }
 
+function filterSimpsons(myId) {
+    const promise = new Promise(async (resolve, reject) => {
+        const list = await listSimpsons();
+        const newArray = list.filter(element => element.id != myId);
+        console.log(newArray);
+        resolve(newArray);
+        reject(new Error('I got a error!'));
+    });
+    return promise;
+}
+
+async function rewriteSimpsons(myArray) {
+    let data = JSON.stringify(myArray, null, 2);
+    fs.writeFile('./simpsons.json', data)
+        .then(() => { console.log('File sucessful written!'); })
+        .catch((err) => { console.error(`Write error: ${err.message}`); });
+}
+
 printSimpsons();
 
 simpsonsID(2)
@@ -35,5 +53,8 @@ simpsonsID(2)
 simpsonsID(20)
     .then(result => console.log(`Id: ${result.id}, Name: ${result.name}.`))
     .catch(err => console.log(`Error: ${err.message}`));
+
+filterSimpsons(1)
+    .then(data => rewriteSimpsons(data));
 
 
