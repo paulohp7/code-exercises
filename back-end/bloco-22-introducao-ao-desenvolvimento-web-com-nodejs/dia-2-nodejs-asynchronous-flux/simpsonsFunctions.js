@@ -10,7 +10,7 @@ async function listSimpsons() {
     const names = await fs.readFile(mySimpsons)
         .then(data => JSON.parse(data))
         .catch((err) => {
-            console.error(`Não foi possível ler o arquivo ${mySimpsons}\n Erro: ${err}`);
+            console.error(`Cannot read the file ${mySimpsons}\n Erro: ${err}`);
             process.exit(1); // Encerra a execução do script e informa ao sistema operacional que houve um erro com código
         });
     return names;
