@@ -1,6 +1,9 @@
 const fs = require('fs').promises;
 
 const mySimpsons = './simpsons.json';
+const simpsonsFamily = './simpsonFamily.json';
+
+const newMember = { id: 11, name: 'Nelson Muntz'};
 
 async function listSimpsons() {
     const names = await fs.readFile(mySimpsons)
@@ -55,6 +58,26 @@ async function createFamilySimpsons() {
         .catch((err) => { console.error(`Write error: ${err.message}`); });
 }
 
+async function listSimpsonsFamily() {
+    const names = await fs.readFile(simpsonsFamily)
+        .then(data => JSON.parse(data))
+        .catch((err) => {
+            console.error(`Não foi possível ler o arquivo ${mySimpsons}\n Erro: ${err}`);
+            process.exit(1); // Encerra a execução do script e informa ao sistema operacional que houve um erro com código
+        });
+    return names;
+}
+
+async function addSimpsonsMember(member) {
+    const list = await listSimpsonsFamily();
+    list.push(member);
+    let data = JSON.stringify(list, null, 2);
+    fs.writeFile('./simpsonFamily.json', data)
+        .then(() => { console.log('File sucessful written!'); })
+        .catch((err) => { console.error(`Write error: ${err.message}`); });
+
+} 
+
 printSimpsons();
 
 simpsonsID(2)
@@ -67,6 +90,8 @@ simpsonsID(20)
 // filterSimpsons(1)
 //     .then(data => rewriteSimpsons(data));
 
-createFamilySimpsons();
+// createFamilySimpsons();
+
+addSimpsonsMember(newMember);
 
 
