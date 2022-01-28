@@ -26,5 +26,19 @@ function manipulateTxtFiles() {
         });
 }
 
-manipulateTxtFiles();
+function createFiles() {
+    const myArray = ['Finalmente', 'estou', 'usando', 'Promise.all', '!!!'];
+    const promisesArray = myArray.map((element, index) => fs.writeFile(`./newFiles/file${index}.txt`, element))
+    Promise.all(promisesArray)
+        .then(() => {
+            console.log(`All files have been sucessful written.`);
+        })
+        .catch((err) => {
+            console.error(`Error to write the files: ${err.message}`);
+        });
+}
+
+// manipulateTxtFiles();
+
+createFiles();
 
