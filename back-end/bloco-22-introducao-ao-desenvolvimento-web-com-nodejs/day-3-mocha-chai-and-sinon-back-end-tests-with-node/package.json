@@ -1,0 +1,19 @@
+{
+  "name": "day-3-mocha-chai-and-sinon-back-end-tests-with-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "numberFunction.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha ./tests/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.0"
+  }
+}
