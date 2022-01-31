@@ -1,5 +1,7 @@
 const express = require('express');
+const fs = require('fs').promises;
 const bodyParser = require('body-parser');
+const listSimpsons = require('./listSimpsons');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,16 +16,20 @@ app.post('/hello', function (req, res) {
     res.status(201).json({ message:`Hello ${name}!` });
   });
 
-  app.post('/greetings', function (req, res) {
+app.post('/greetings', function (req, res) {
     const { name, age } = req.body;
     if (age > 17) res.status(200).json({ message:`Hello ${name}!` });
     else res.status(401).json({ "message": "Unauthorized" })
-  });
+});
 
-  app.put('/users/:name/:age', function (req, res) {
-      const { name, age } = req.params;
-      res.status(200).json({ "message": `Your name is ${name} and you are ${age} years old` });
-  });
+app.put('/users/:name/:age', function (req, res) {
+    const { name, age } = req.params;
+    res.status(200).json({ "message": `Your name is ${name} and you are ${age} years old` });
+});
+
+app.get('/simpsons', function(req, res) {
+    listSimpsons().then((data) => res.status(200).json(data));
+});
 
 // app.get('/recipes/pesquisar', function (req, res) {
 //   const { name, maxPrice } = req.query;
