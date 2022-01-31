@@ -31,49 +31,33 @@ app.get('/simpsons', function(req, res) {
     listSimpsons().then((data) => res.status(200).json(data));
 });
 
-// app.get('/recipes/pesquisar', function (req, res) {
-//   const { name, maxPrice } = req.query;
-//   const filteredRecipes = recipes.filter((r) => r.name.includes(name) && r.preco < parseInt(maxPrice));
-//   res.status(200).json(filteredRecipes);
-// });
+app.get('/simpsons/:id', function (req, res) {
+  const { id } = req.params;
+  listSimpsons().then((data) => {
+      const simpsonID = data.find((simpson) => simpson.id === id);
+      if(!simpsonID) return res.status(404).json({ message: 'Simpson not found!'});
+      res.status(200).json(simpsonID);
+  });
+});
 
-// app.get('/recipes/:id', function (req, res) {
-//   const { id } = req.params;
-//   const recipe = recipes.find((r) => r.id === parseInt(id));
-//   if (!recipe) return res.status(404).json({ message: 'Recipe not found!'});
+app.post('/simpsons', function (req, res) {
+    const { id, name } = req.body;
+    listSimpsons().then((data) => {
+        const simpsonID = data.find((simpson) => simpson.id === id);
+        if(simpsonID) return res.status(409).json({ message: 'id already exists' });
+        data.push({ id, name })
+        let stringData = JSON.stringify(data, null, 2);
+        fs.writeFile('./simpsons.json', stringData)
+            .then(() => { console.log('File sucessful written!'); })
+            .catch((err) => { console.error(`Write error: ${err.message}`); });
+        res.status(204).end();
+    });
+  });
 
-//   res.status(200).json(recipe);
-// });
-
-
-
-// app.put('/recipes/:id', function (req, res) {
-//   const { id } = req.params;
-//   const { name, price } = req.body;
-//   const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
-
-//   if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
-
-//   recipes[recipeIndex] = { ...recipes[recipeIndex], name, price };
-
-//   res.status(204).end();
-// });
-
-// app.delete('/recipes/:id', function (req, res) {
-//   const { id } = req.params;
-//   const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
-
-//   if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
-
-//   recipes.splice(recipeIndex, 1);
-
-//   res.status(204).end();
-// });
-
-// app.all('*', function (req, res) {
-//     return res.status(404).json({ message: `Rota '${req.path}' não existe!`});
-// });
+app.all('*', function (req, res) {
+    return res.status(404).json({ message: `Route '${req.path}' does not exist!`});
+});
 
 app.listen(3001, () => {
-  console.log('Aplicação ouvindo na porta 3001');
+  console.log('Listening the application on port 3001');
 });
