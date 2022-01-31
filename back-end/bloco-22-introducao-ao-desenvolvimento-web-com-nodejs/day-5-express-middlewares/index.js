@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ping = require('./middlewares/ping');
 const hello = require('./middlewares/hello');
+const greetings = require('./middlewares/greetings');
 
 const app = express();
 app.use(bodyParser.json());
@@ -9,6 +10,8 @@ app.use(bodyParser.json());
 app.get('/ping', ping);
 
 app.post('/hello', hello);
+
+app.post('/greetings', greetings);
 
 app.all('*', function (req, res) {
     return res.status(404).json({ message: `Route '${req.path}' does not exist!`});
