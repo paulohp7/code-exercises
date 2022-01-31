@@ -20,6 +20,11 @@ app.post('/hello', function (req, res) {
     else res.status(401).json({ "message": "Unauthorized" })
   });
 
+  app.put('/users/:name/:age', function (req, res) {
+      const { name, age } = req.params;
+      res.status(200).json({ "message": `Your name is ${name} and you are ${age} years old` });
+  });
+
 // app.get('/recipes/pesquisar', function (req, res) {
 //   const { name, maxPrice } = req.query;
 //   const filteredRecipes = recipes.filter((r) => r.name.includes(name) && r.preco < parseInt(maxPrice));
