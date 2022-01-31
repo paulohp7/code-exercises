@@ -2,11 +2,11 @@
   "name": "day-5-express-middlewares",
   "version": "1.0.0",
   "description": "",
-  "main": "express-middlewares.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./express-middlewares.js",
-    "start": "node ."
+    "recipes": "nodemon ./middlewareRecipes/express-middlewares.js",
+    "challenge": "nodemon ./index.js"
   },
   "keywords": [],
   "author": "",
