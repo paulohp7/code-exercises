@@ -1,37 +1,35 @@
 const express = require('express');
-const fs = require('fs').promises;
 const bodyParser = require('body-parser');
-const ping = require('./middlewares/ping');
-const hello = require('./middlewares/hello');
-const greeting = require('./middlewares/greeting');
-const getSimpsons = require('./middlewares/getSimpsons');
-const getSimpsonById = require('./middlewares/getSimpsonById');
-const createSimpson = require('./middlewares/createSimpson');
-const validateIdSimpson = require('./middlewares/validateIdSimpson');
-const validateNameSimpson = require('./middlewares/validateNameSimpson'); 
 
 const app = express();
 app.use(bodyParser.json());
 
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 
-app.get('/ping', ping);
+const validatePassword = (password) => {
+  if (password.length > 3 && password.length < 9) {
+    return password.match(/^[0-9]*$/);
+  };
+  return false;
+}
+  
+const authMiddleware = (req, res, _next) => {
+  const { username, email, password } = req.body;
+  
+  if (username.length > 3 && validateEmail(email) && validatePassword(password)) {
+    res.status(201).json({ message: 'user created' });
+  } else res.status(400).json({ message: 'invalid data' });
 
-app.post('/hello', hello);
+};
 
-app.post('/greeting', greeting);
+app.post('/user/register', authMiddleware);
 
-app.use([validateIdSimpson, validateNameSimpson]);
-
-app.get('/simpsons', getSimpsons);
-
-app.get('/simpsons/:id', getSimpsonById);
-
-app.post('/simpsons', createSimpson);
-
-app.all('*', function (req, res) {
-    return res.status(404).json({ message: `Route '${req.path}' does not exist!`});
-});
-
-app.listen(3001, () => {
-  console.log('Listening the application on port 3001');
+app.listen(3000, () => {
+  console.log('Listening the application on port 3000');
 });
