@@ -1,12 +1,12 @@
 {
-  "name": "day-5-express-middlewares",
+  "name": "day-4-node-with-http-express",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "recipes": "nodemon ./middlewareRecipes/express-middlewares.js",
-    "challenge": "nodemon ./index.js"
+    "dev": "nodemon index.js",
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
