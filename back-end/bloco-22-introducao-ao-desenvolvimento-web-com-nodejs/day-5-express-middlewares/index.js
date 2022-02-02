@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const routerUser = require('./routerUser');
 const routerPost = require('./routerPost');
+const createTeam = require('./middlewaresTeams/createTeam');
+const listTeams = require('./middlewaresTeams/listTeams');
 const validateToken = require('./utils/validateToken');
 const axios = require('axios');
 
@@ -23,6 +25,10 @@ app.get('/pokemon/token', async (req, res, next) => {
 });
 
 app.use('/post', routerPost);
+
+app.post('/teams', createTeam);
+
+app.get('/teams', listTeams);
 
 app.use('*', function (_req, _res, next) {
   next({ statusCode: 404, message: 'Opsss router not found' }) 
