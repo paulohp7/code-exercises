@@ -39,9 +39,18 @@ const getUserById = async (id) => {
     return myUser;
 }
 
+const update = async (id, firstName, lastName, email, password) => {
+    const q_one = 'UPDATE DB_users.tb_users ';
+    const q_two = 'SET first_name = ?, last_name = ?, email = ?, user_password = ? ';
+    const q_three = 'WHERE id = ?';
+    await connection.execute(q_one + q_two + q_three, [firstName, lastName, email,  password, id]);
+    return getUserById(id);
+}
+
 module.exports = {
     getAll,
     create,
+    update,
     isValidId,
     isValidCreate,
     getUserById,
