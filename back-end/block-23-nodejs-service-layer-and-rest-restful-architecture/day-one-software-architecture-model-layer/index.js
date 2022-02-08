@@ -14,15 +14,20 @@ app.get('/user', async (_req, res) => {
 
 app.post('/user', async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
-    if (!firstName) res.status(400).json({ error: true, message: 'Name is mandatory' });
-    else if (!lastName) res.status(400).json({ error: true, message: 'Last Name is mandatory' });
-    else if (!email) res.status(400).json({ error: true, message: 'Email is mandatory' });
-    else if (!password) res.status(400).json({ error: true, message: 'Password is mandatory' });
-    else if (password.length < 6) res.status(400).json({ error: true, message: 'Password must have at least 6 digits' });
-    else {
+    const myMessage = User.isValidCreate(firstName, lastName, email, password);
+    if (myMessage === true) {
         const [metaData] = await User.create(firstName, lastName, email, password);
         res.status(201).json({ id: metaData.insertId, ...req.body });
+    } else res.status(400).json({ erro: true, message: myMessage })
+});
+
+app.get('/users/:id', async (req, res) => {
+    const { id } = req.params;
+    if (!(await User.isValidId(id))) {
+        return res.status(404).json({ error: true, message: 'User not found!' });
     }
+    const selectedUser = await User.getUserById(id);
+    res.status(200).json(selectedUser);
 });
 
 app.listen(PORT, () => {
