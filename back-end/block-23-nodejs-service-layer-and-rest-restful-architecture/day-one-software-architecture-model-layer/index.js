@@ -34,7 +34,7 @@ app.put('/user/:id', async (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, email, password } = req.body;
     if (!(await User.isValidId(id))) {
-        return res.status(404).json({ error: true, message: 'User not found!' });
+        return res.status(404).json({ error: true, message: 'User not found!!' });
     }
     const myMessage = User.isValidCreate(firstName, lastName, email, password);
     if (myMessage === true) {
