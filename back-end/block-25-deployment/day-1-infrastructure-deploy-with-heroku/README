@@ -1,0 +1,10 @@
+Both apps are not with git remotes
+
+deploy-exercises 		- remote = https://git.heroku.com/meu-deploy-de-testes-777.git
+meu-primeiro-deploy-heroku 	- remote = https://git.heroku.com/meu-primeiro-deploy-666.git
+
+URLs:
+
+https://prod-170893.herokuapp.com/
+https://meu-deploy-de-testes-777.herokuapp.com/
+https://meu-primeiro-deploy-666.herokuapp.com/
