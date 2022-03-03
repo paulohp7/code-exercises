@@ -1,5 +1,5 @@
 import { Student } from './classes/Student';
-import { Customer } from './classes/Customer';
+import { Order } from './classes/Order';
 
 const student1 = new Student(1234, 'John', [10, 10, 10, 10], [10, 10]);
 console.log(`John avarage grade is: ${student1.avaregaGrades()}`);
