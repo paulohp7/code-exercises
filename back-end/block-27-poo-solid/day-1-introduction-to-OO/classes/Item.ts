@@ -15,9 +15,5 @@ export class Item {
     public get price() : number {
         return this._price;
     }
-
-    // public set name(name: string) {
-    //     this._name = name;
-    // }
     
 }
